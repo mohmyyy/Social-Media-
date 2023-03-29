@@ -1,23 +1,29 @@
 import { createContext, useEffect, useState } from "react";
 
+export const AuthContext = createContext();
 
-export const authContext = createContext({});
+export const AuthContextProvider = ({ children }) => {
+  const [currentUser, setCurrentUser] = useState(
+    JSON.parse(localStorage.getItem("user")) || null
+  );
 
-const authProvider = ({ children }) => {
-  const getAuthentication = JSON.parse(localStorage.getItem("login")) || false;
-  const [auth, setAuth] = useState(getAuthentication);
+  const login = () => {
+    //TO DO
+    setCurrentUser({
+      id: 1,
+      name: "John Doe",
+      profilePic:
+        "https://images.pexels.com/photos/3228727/pexels-photo-3228727.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    });
+  };
 
   useEffect(() => {
-    localStorage.setItem("login", auth);
-  }, [auth]);
-
-  const login = () => {};
+    localStorage.setItem("user", JSON.stringify(currentUser));
+  }, [currentUser]);
 
   return (
-    <authContext.Provider value={{ auth, login }}>
+    <AuthContext.Provider value={{ currentUser, login }}>
       {children}
-    </authContext.Provider>
+    </AuthContext.Provider>
   );
 };
-
-export default authProvider

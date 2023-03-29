@@ -13,18 +13,23 @@ import Tutorials from "../../components/asserts/tutorials.png";
 import Courses from "../../components/asserts/courses.png";
 import Fund from "../../components/asserts/fundraiser.png";
 import { Group } from "@mui/icons-material";
+import { AuthContext } from "../../context/authentication";
+import { useContext } from "react";
+
 
 const LeftBar = () => {
+  const { currentUser } = useContext(AuthContext);
+
   return (
     <div className="leftbar">
       <div className="container">
         <div className="menu">
           <div className="user">
             <img
-              src="https://images.unsplash.com/photo-1520880867055-1e30d1cb001c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
+              src={currentUser.profilePic}
               alt=""
             />
-            <span> Mohmy </span>
+            <span> {currentUser.name} </span>
           </div>
           <div className="item">
             <img src={Friends} alt="friend" />

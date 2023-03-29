@@ -1,13 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
+import { AuthContextProvider } from "./context/authentication";
 import { DarkModeProvider } from "./context/darkModeContext";
 import reportWebVitals from "./reportWebVitals";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <DarkModeProvider>
+    <AuthContextProvider>
       <App />
+    </AuthContextProvider>
   </DarkModeProvider>
 );
 

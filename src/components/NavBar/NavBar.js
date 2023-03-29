@@ -11,9 +11,12 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { DarkModeContext } from "../../context/darkModeContext";
+import { AuthContext } from "../../context/authentication";
 
 const NavBar = () => {
   const { darkMode, toggle } = useContext(DarkModeContext);
+  const { currentUser } = useContext(AuthContext);
+
   return (
     <div className="navbar">
       <div className="left">
@@ -34,11 +37,8 @@ const NavBar = () => {
         <EmailOutlinedIcon />
         <NotificationsNoneOutlinedIcon />
         <div className="user">
-          <img
-            src="https://images.unsplash.com/photo-1520880867055-1e30d1cb001c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
-            alt=""
-          />
-          <span> Mohmy </span>
+          <img src={currentUser.profilePic} alt="" />
+          <span>{currentUser.name}</span>
         </div>
       </div>
     </div>
