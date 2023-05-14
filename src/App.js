@@ -14,13 +14,11 @@ import Home from "./Pages/Home/Home";
 import Profile from "./Pages/Profile/Profile";
 import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
-import { AuthContext } from "./context/authentication";
+import ForgotPassword from "./Pages/ForgotPassword/ForgotPassword";
 
 function App() {
   const currentUser = true;
-  const {darkMode} = useContext(DarkModeContext);
-  const {user} = useContext(AuthContext);
-  
+  const { darkMode } = useContext(DarkModeContext);
 
   const Layout = () => {
     return (
@@ -70,6 +68,10 @@ function App() {
     {
       path: "/register",
       element: <Register />,
+    },
+    {
+      path: "/forgotPassword",
+      element: <ForgotPassword />,
     },
   ]);
   return (

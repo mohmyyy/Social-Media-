@@ -1,7 +1,61 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Register.scss";
+import { useState } from "react";
+
+// const SignUpURL = "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyC-H5S1Dc0YzTVN4v1gmRNN6j5Np8xmMU8";
 
 const Register = () => {
+  const [registerUsers, setRegisterUsers] = useState({
+    name: "",
+    // userName: "",
+    email: "",
+    password: "",
+  });
+  const [isRegistered, setIsRegistered] = useState(false);
+  const [message, setMessage] = useState("");
+  const navigate = useNavigate();
+  const userInputHandler = (event) => {
+    setRegisterUsers({
+      ...registerUsers,
+      [event.target.name]: event.target.value,
+    });
+  };
+  const registerFormHandler = async (event) => {
+    event.preventDefault();
+    setIsRegistered(() => true);
+    console.log(registerUsers);
+    let currentUserToken;
+    try {
+      const response = await fetch(
+        "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyC-H5S1Dc0YzTVN4v1gmRNN6j5Np8xmMU8",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            email: registerUsers.email,
+            password: registerUsers.password,
+            returnSecureToken: true,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      const data = await response.json();
+      currentUserToken = data.idToken;
+      if (!response.ok) {
+        throw new Error("Registration Failed");
+      } else {
+        navigate("/");
+        setTimeout(() => {
+          alert("welcome to Bloom");
+        },1000);
+      }
+      setMessage(() => "User Registered...");
+    } catch (error) {
+      alert(error);
+    }
+  };
+
   return (
     <div className="register">
       <div className="card">
@@ -11,19 +65,40 @@ const Register = () => {
             Lorem Ipsum is simply dummy text of the printing and typesetting
             industry. Lorem Ipsum has been the industry's standard dummy text
           </p>
-          <span>Don't have an account?</span>
+          <span>Got an account?</span>
           <Link to="/login">
-            <button>Register</button>
+            <button>Login</button>
           </Link>
         </div>
         <div className="right">
-          <h1>LogIn</h1>
-          <form>
-            <input type="text" placeholder="Name" />
-            <input type="text" placeholder="Username" />
-            <input type="email" placeholder="Email" />
-            <input type="password" placeholder="Password" />
-            <button>LogIn</button>
+          <h1>Register</h1>
+          <form onSubmit={registerFormHandler}>
+            {/* <input
+              type="text"
+              name="name"
+              onChange={userInputHandler}
+              placeholder="Name"
+            /> */}
+            {/* <input
+              type="text"
+              name="userName"
+              onChange={userInputHandler}
+              placeholder="Username"
+            /> */}
+            <input
+              type="email"
+              name="email"
+              onChange={userInputHandler}
+              placeholder="Email"
+            />
+            <input
+              type="password"
+              name="password"
+              onChange={userInputHandler}
+              placeholder="Password"
+            />
+            {!isRegistered && <button>Register</button>}
+            {isRegistered && <p>{message}</p>}
           </form>
         </div>
       </div>

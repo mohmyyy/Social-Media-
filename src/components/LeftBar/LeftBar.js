@@ -13,12 +13,8 @@ import Tutorials from "../../components/asserts/tutorials.png";
 import Courses from "../../components/asserts/courses.png";
 import Fund from "../../components/asserts/fundraiser.png";
 import { Group } from "@mui/icons-material";
-import { AuthContext } from "../../context/authentication";
-import { useContext } from "react";
-
 
 const LeftBar = () => {
-  const { currentUser } = useContext(AuthContext);
 
   return (
     <div className="leftbar">
@@ -26,10 +22,12 @@ const LeftBar = () => {
         <div className="menu">
           <div className="user">
             <img
-              src={currentUser.profilePic}
+              // src={currentUser.profilePic ? currentUser.profilePic : ''}
+              src="https://images.pexels.com/photos/3228727/pexels-photo-3228727.jpeg?auto=compress&cs=tinysrgb&w=1600"
               alt=""
             />
-            <span> {currentUser.name} </span>
+            {/* <span> {currentUser.name ? currentUser.name : ''} </span> */}
+            <span>Mohmy</span>
           </div>
           <div className="item">
             <img src={Friends} alt="friend" />

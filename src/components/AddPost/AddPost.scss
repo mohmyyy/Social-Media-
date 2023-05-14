@@ -1,0 +1,93 @@
+@import "../../style.scss";
+.addpost {
+  @include themify($themes) {
+    -webkit-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
+    -moz-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
+    box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
+    border-radius: 20px;
+    background-color: themed("bg");
+    color: themed("textColor");
+    margin-bottom: 20px;
+
+    .container {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+
+      .userpost {
+        display: flex;
+        // align-items: center;
+        gap: 10px;
+        justify-content: start;
+
+        img {
+          height: 40px;
+          width: 40px;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+        input {
+          outline: none;
+          padding: 10px;
+          width: 100%;
+          background-color: transparent;
+          border: none;
+          color: themed("textColor");
+        }
+      }
+
+      hr {
+        margin: 10px 0px;
+        border: none;
+        height: 0.5px;
+        background-color: themed("border");
+        @include mobile {
+          display: none;
+        }
+      }
+      .posticons {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        .left {
+          display: flex;
+          flex-direction: row;
+          // justify-content: space-between;
+          // align-items: center;
+          gap: 20px;
+
+          .add-image {
+            display: flex;
+            // justify-content: center;
+            align-items: center;
+            gap: 6px;
+            span {
+              @include mobile {
+                display: none;
+              }
+            }
+            input {
+              display: none;
+            }
+          }
+
+          .add-icon {
+            display: flex;
+            // justify-content: center;
+            align-items: center;
+            gap: 6px;
+            span {
+              @include mobile {
+                display: none;
+              }
+            }
+          }
+        }
+        .right {
+        }
+      }
+    }
+  }
+}

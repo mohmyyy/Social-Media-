@@ -6,14 +6,14 @@
   height: 250px;
   margin-bottom: 20px;
 
-  @include mobile {
-    height: 50px;
-    // display: flex;
-    justify-content: space-evenly;
-  }
-
   @include tablet{
     height: 200px;
+  }
+
+  @include mobile {
+    height: 50px;
+    display: flex;
+    justify-content: space-evenly;
   }
 
   .story {

@@ -4,13 +4,15 @@ import App from "./App";
 import { AuthContextProvider } from "./context/authentication";
 import { DarkModeProvider } from "./context/darkModeContext";
 import reportWebVitals from "./reportWebVitals";
+import { Provider } from "react-redux";
+import store from "./store/redux-store";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <DarkModeProvider>
-    <AuthContextProvider>
+    <Provider store={store}>
       <App />
-    </AuthContextProvider>
+    </Provider>
   </DarkModeProvider>
 );
 
