@@ -10,8 +10,8 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  @include mobile{
-    align-items:normal;
+  @include mobile {
+    align-items: normal;
   }
 
   .card {
@@ -51,7 +51,7 @@
         font-size: 100px;
         line-height: 100px;
         margin: 0;
-        @include mobile{
+        @include mobile {
           margin-top: 40px;
           font-size: 50px;
         }
@@ -74,7 +74,7 @@
         font-weight: bold;
         cursor: pointer;
       }
-      @include mobile{
+      @include mobile {
         // margin: 10px;
       }
     }
@@ -95,11 +95,15 @@
       form {
         display: flex;
         flex-direction: column;
-        gap: 30px;
+        gap: 20px;
         input {
           border: none;
           border-bottom: 1px solid lightgray;
           padding: 20px 10px;
+        }
+        a {
+          text-decoration: none;
+          text-align: center;
         }
         button {
           width: 50%;
@@ -108,6 +112,7 @@
           background-color: #938eef;
           color: white;
           font-weight: bold;
+
           cursor: pointer;
         }
       }

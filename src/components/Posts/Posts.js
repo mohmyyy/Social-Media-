@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import Post from "./Post";
 import "./Posts.scss";
 const Posts = () => {
@@ -22,10 +23,12 @@ const Posts = () => {
     },
   ];
 
+  const myPosts = useSelector((state) => state.post.posts);
+  console.log(myPosts);
   return (
     <div className="posts">
-      {posts.map((post) => (
-        <Post post={post} key={post.id} />
+      {myPosts.map((post) => (
+        <Post post={post} key={post.key} />
       ))}
     </div>
   );

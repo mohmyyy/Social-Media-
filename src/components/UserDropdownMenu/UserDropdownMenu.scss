@@ -1,0 +1,58 @@
+@import "./../../style.scss";
+
+.userdropdownmenu {
+  @include themify($themes) {
+    .menu-trigger {
+      img {
+        height: 200px;
+        width: 200px;
+        overflow: hidden;
+        cursor: pointer;
+      }
+    }
+    .dropdown-menu {
+      -webkit-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
+      -moz-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
+      box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
+      border-radius: 20px;
+      position: absolute;
+      top: 60px;
+      right: 5px;
+      background-color: themed('bg');
+
+      border-radius: 10px;
+      padding: 10px 20px;
+      width: 200px;
+
+      h3 {
+        width: 100%;
+        text-align: center;
+        font-size: 18px;
+        padding: 20px 0;
+        font-weight: 500;
+        color: themed('textColor');
+        line-height: 1.2rem;
+
+        span {
+          font-size: 14px;
+          color: themed('textColorSoft');
+          font-weight: 400;
+        }
+      }
+
+      ul {
+        list-style: none;
+      }
+    }
+    .dropdown-menu::before {
+      content: "";
+      position: absolute;
+      top: -5px;
+      right: 20px;
+      height: 20px;
+      width: 20px;
+      background-color: themed('bg');;
+      transform: rotate(45deg);
+    }
+  }
+}

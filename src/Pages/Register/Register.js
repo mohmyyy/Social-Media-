@@ -1,6 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
 import "./Register.scss";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { authAction } from "../../store/redux-auth";
 
 // const SignUpURL = "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyC-H5S1Dc0YzTVN4v1gmRNN6j5Np8xmMU8";
 
@@ -11,6 +13,7 @@ const Register = () => {
     email: "",
     password: "",
   });
+  const dispatch = useDispatch();
   const [isRegistered, setIsRegistered] = useState(false);
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
@@ -48,7 +51,14 @@ const Register = () => {
         navigate("/");
         setTimeout(() => {
           alert("welcome to Bloom");
-        },1000);
+        }, 1000);
+        dispatch(
+          authAction.login({
+            token: data.idToken,
+            email: data.email,
+            name: null,
+          })
+        );
       }
       setMessage(() => "User Registered...");
     } catch (error) {

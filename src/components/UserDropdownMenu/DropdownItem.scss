@@ -1,0 +1,37 @@
+@import "./../../style.scss";
+
+.dropdownItem {
+  @include themify($themes) {
+    display: flex;
+    align-items: center;
+    margin: 10px auto;
+
+    a {
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    span:hover {
+      cursor: pointer;
+      opacity: 1;
+    }
+    span {
+      color: themed("textColor");
+      max-width: fit-content;
+      margin-right: 10px;
+      opacity: 0.5;
+    }
+  }
+}
+
+li {
+  padding: 10px 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+li:hover a {
+  color: rgba(212, 33, 9);
+  cursor: pointer;
+}

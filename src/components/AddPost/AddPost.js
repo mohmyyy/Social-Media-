@@ -5,17 +5,74 @@ import PlaceOutlinedIcon from "@mui/icons-material/PlaceOutlined";
 import GroupAddOutlinedIcon from "@mui/icons-material/GroupAddOutlined";
 import SendOutlinedIcon from "@mui/icons-material/SendOutlined";
 import Post from "../Posts/Post";
+import { useDispatch, useSelector } from "react-redux";
+import { postActions } from "../../store/redux-posts";
+import moment from "moment";
 
 const AddPost = () => {
   const [post, setPost] = useState({ textPost: "", imagePost: "" });
 
-  const postInputHandler = (event) => {
-    event.preventDefault();
-    setPost({ ...post, [event.target.name]: event.target.value });
+  const dispatch = useDispatch();
+  const auth = useSelector((state) => state.auth);
+  // const time = moment().startOf("minute").fromNow();
+  const time = moment().format("LTS");
+
+  const imagePostHandler = (event) => {
+    // let file = event.target.files[0];
+    // setPost({ ...post, imagePost: URL.createObjectURL(file) });
+    let file = event.target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      // setProfile({ ...profile, image: reader.result });
+      setPost({ ...post, imagePost: reader.result });
+      // setProfile.image(reader.result);
+    };
+    if (file) {
+      reader.readAsDataURL(file);
+    }
   };
-  const submitPostHandler = (event) => {
+
+  const textPostHandler = (event) => {
+    setPost({ ...post, textPost: event.target.value });
+  };
+  const submitPostHandler = async (event) => {
     event.preventDefault();
     console.log(post);
+    dispatch(
+      postActions.addpost({
+        text: post.textPost,
+        image: post.imagePost,
+        time: time,
+      })
+    );
+
+    try {
+      let response = await fetch(
+        `https://bloom-54dfc-default-rtdb.firebaseio.com/${auth.hashedEmail}/myposts.json`,
+        {
+          method: "POST",
+          body: JSON.stringify({
+            textPost: post.textPost,
+            imagePost: post.imagePost,
+            time: time,
+            likes: 0,
+            numberofComment: 0,
+            comments: null,
+          }),
+          headers: {
+            "Content-type": "application/json",
+          },
+        }
+      );
+      let data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.error.message);
+      }
+    } catch (error) {
+      alert(error);
+    }
+
     setPost({ textPost: "", imagePost: "" });
   };
 
@@ -29,24 +86,24 @@ const AddPost = () => {
             name="textPost"
             placeholder="What's on your mind?"
             value={post.textPost}
-            onChange={postInputHandler}
+            onChange={textPostHandler}
           />
         </div>
         <hr />
+        <span>{post.imagePost.slice(0, 30)}</span>
         <div className="posticons">
           <div className="left">
             <div className="add-image">
               <label htmlFor="postImage">
                 <AddPhotoAlternateOutlinedIcon />
+                <span>Add image</span>
               </label>
-              <span>Add image</span>
               <input
                 id="postImage"
                 type="file"
                 accept="image/jpg, image/png, image/jpeg"
                 name="imagePost"
-                value={post.imagePost}
-                onChange={postInputHandler}
+                onChange={imagePostHandler}
               />
             </div>
             <div className="add-icon">

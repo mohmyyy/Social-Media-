@@ -9,8 +9,11 @@ import LanguageIcon from "@mui/icons-material/Language";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Posts from "../../components/Posts/Posts";
+import { useSelector } from "react-redux";
 
-const Profile = () => {
+const Profile = ({ profilePic, profileName, personalProfile }) => {
+  // const auth = useSelector((state) => state.auth);
+  // const name = auth.name ? auth.name : auth.email;
   return (
     <div className="profile">
       <div className="images">
@@ -19,33 +22,32 @@ const Profile = () => {
           className="cover"
           alt=""
         />
-        <img
-          src="https://images.pexels.com/photos/14028501/pexels-photo-14028501.jpeg?auto=compress&cs=tinysrgb&w=1600&lazy=load"
-          className="profilePic"
-          alt=""
-        />
+        <img src={profilePic} className="profilePic" alt="" />
       </div>
       <div className="profileContainer">
         <div className="uInfo">
           <div className="left">
-            <a href="http://facebook.com">
+            <a href="http://facebook.com" target="_blank">
               <FacebookTwoToneIcon fontSize="large" />
             </a>
-            <a href="http://twitter.com">
+            <a href="http://twitter.com" target="_blank">
               <TwitterIcon fontSize="large" />
             </a>
-            <a href="http://facebook.com">
+            <a href="http://facebook.com" target="_blank">
               <InstagramIcon fontSize="large" />
             </a>
-            <a href="http://facebook.com">
+            <a
+              href="https://www.linkedin.com/in/soudagarsahib/"
+              target="_blank"
+            >
               <LinkedInIcon fontSize="large" />
             </a>
-            <a href="http://facebook.com">
+            <a href="http://facebook.com" target="_blank">
               <PinterestIcon fontSize="large" />
             </a>
           </div>
           <div className="center">
-            <span>userName</span>
+            <span>{profileName}</span>
             <div className="info">
               <div className="item">
                 <PlaceIcon />
@@ -56,7 +58,7 @@ const Profile = () => {
                 <span>mohmy.dev</span>
               </div>
             </div>
-            <button>Follow</button>
+            {!personalProfile && <button>Follow</button>}
           </div>
           <div className="right">
             <EmailOutlinedIcon />

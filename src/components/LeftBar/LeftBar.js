@@ -13,22 +13,22 @@ import Tutorials from "../../components/asserts/tutorials.png";
 import Courses from "../../components/asserts/courses.png";
 import Fund from "../../components/asserts/fundraiser.png";
 import { Group } from "@mui/icons-material";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const LeftBar = () => {
-
+  const auth = useSelector((state) => state.auth);
+  const name = auth.name ? auth.name : auth.email;
   return (
     <div className="leftbar">
       <div className="container">
         <div className="menu">
-          <div className="user">
-            <img
-              // src={currentUser.profilePic ? currentUser.profilePic : ''}
-              src="https://images.pexels.com/photos/3228727/pexels-photo-3228727.jpeg?auto=compress&cs=tinysrgb&w=1600"
-              alt=""
-            />
-            {/* <span> {currentUser.name ? currentUser.name : ''} </span> */}
-            <span>Mohmy</span>
-          </div>
+          <Link to={`/myprofile/${name}`}>
+            <div className="user">
+              <img src={auth.image} alt="" />
+              <span>{name}</span>
+            </div>
+          </Link>
           <div className="item">
             <img src={Friends} alt="friend" />
             <span> Friends </span>

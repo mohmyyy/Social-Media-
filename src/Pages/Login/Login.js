@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Login.scss";
 import { useDispatch } from "react-redux";
@@ -9,6 +9,8 @@ const Login = () => {
     email: "",
     password: "",
   });
+  const emailInputRef = useRef();
+  const passwordInputRef = useRef();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [isRegistered, setIsRegistered] = useState(false);
@@ -22,6 +24,13 @@ const Login = () => {
   };
   const loginHandler = async (event) => {
     event.preventDefault();
+    if (emailInputRef.current.value.length === 0) {
+      emailInputRef.current.focus();
+      return;
+    } else if (passwordInputRef.current.value.trim().length === 0) {
+      passwordInputRef.current.focus();
+      return;
+    }
     setIsRegistered(() => true);
     console.log(registerUsers);
     try {
@@ -45,10 +54,16 @@ const Login = () => {
       if (!response.ok) {
         throw new Error("Login Failed");
       } else {
-        navigate("/profile/1");
+        navigate("/");
       }
       setMessage(() => "User Logged In...");
-      // dispatch(authAction.Login());
+      dispatch(
+        authAction.login({
+          token: data.idToken,
+          email: data.email,
+          name: data.displayName,
+        })
+      );
     } catch (error) {
       alert(error);
     }
@@ -72,22 +87,22 @@ const Login = () => {
           <h1>LogIn</h1>
           <form onSubmit={loginHandler}>
             <input
+              ref={emailInputRef}
               type="email"
               name="email"
               onChange={userInputHandler}
               placeholder="Email"
             />
             <input
+              ref={passwordInputRef}
               type="password"
               name="password"
               onChange={userInputHandler}
               placeholder="Password"
             />
+            <Link to="/forgotPassword">Forgot Password</Link>
             {!isRegistered && <button>Login</button>}
           </form>
-          <Link to="/forgotPassword">
-            <button>Forgot Password?</button>
-          </Link>
         </div>
       </div>
     </div>
