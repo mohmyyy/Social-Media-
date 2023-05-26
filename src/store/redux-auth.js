@@ -7,9 +7,7 @@ const initialAuthState = {
   isLoggedIn: isPresent,
   email: checkAuthInfo ? checkAuthInfo.email : "",
   name: checkAuthInfo ? checkAuthInfo.name : "",
-  image: checkAuthInfo
-    ? checkAuthInfo.image
-    : "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiMyP0CvlD2hsvdrbcROffHEBXqIC4OBj24DhsPEG4lfqDw-tzl7zvk8SActgTZzueYZRrZ8ms3GrRSGSiO-3GOgTE87XYBSpdpRh3NcWypJEywoq3m9TiN5obskqV1cnC1LLuYSmVzOaaiFYVsRGLX7MnT9SB6oGlyxILOB1iBsGmTUFiMtjJlZW1jLg/s579/blank-profile-picture-hd-images-photo-1.JPG",
+  image: checkAuthInfo ? checkAuthInfo.image : "",
   hashedEmail: checkAuthInfo ? checkAuthInfo.hashedEmail : "",
 };
 
@@ -24,17 +22,16 @@ const authSlice = createSlice({
         JSON.stringify({
           loginToken: action.payload.token,
           email: action.payload.email,
-          name: action.payload.name ? action.payload.name : "",
-          image: action.payload.image ? action.payload.image : "",
+          name: action.payload.name,
+          image:
+            "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiMyP0CvlD2hsvdrbcROffHEBXqIC4OBj24DhsPEG4lfqDw-tzl7zvk8SActgTZzueYZRrZ8ms3GrRSGSiO-3GOgTE87XYBSpdpRh3NcWypJEywoq3m9TiN5obskqV1cnC1LLuYSmVzOaaiFYVsRGLX7MnT9SB6oGlyxILOB1iBsGmTUFiMtjJlZW1jLg/s579/blank-profile-picture-hd-images-photo-1.JPG",
           hashedEmail: action.payload.email.replace(/[^a-zA-Z0-9 ]/g, ""),
         })
       );
       state.token = action.payload.token;
-      if (action.payload.name) {
-        state.name = action.payload.name;
-      }
-      state.hashedEmail = action.payload.email.replace(/[^a-zA-Z0-9]/g, "");
       state.email = action.payload.email;
+      state.hashedEmail = action.payload.email.replace(/[^a-zA-Z0-9]/g, "");
+      state.name = action.payload.name;
       state.isLoggedIn = true;
     },
     updateProfile(state, action) {
@@ -46,7 +43,9 @@ const authSlice = createSlice({
           loginToken: state.token,
           email: state.email,
           name: action.payload.name ? action.payload.name : "",
-          image: action.payload.image ? action.payload.image : "",
+          image: action.payload.image
+            ? action.payload.image
+            : "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiMyP0CvlD2hsvdrbcROffHEBXqIC4OBj24DhsPEG4lfqDw-tzl7zvk8SActgTZzueYZRrZ8ms3GrRSGSiO-3GOgTE87XYBSpdpRh3NcWypJEywoq3m9TiN5obskqV1cnC1LLuYSmVzOaaiFYVsRGLX7MnT9SB6oGlyxILOB1iBsGmTUFiMtjJlZW1jLg/s579/blank-profile-picture-hd-images-photo-1.JPG",
           hashedEmail: state.hashedEmail.replace(/[^a-zA-Z0-9 ]/g, ""),
         })
       );
@@ -56,6 +55,8 @@ const authSlice = createSlice({
       state.email = "";
       state.hashedEmail = "";
       state.name = "";
+      state.image =
+        "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiMyP0CvlD2hsvdrbcROffHEBXqIC4OBj24DhsPEG4lfqDw-tzl7zvk8SActgTZzueYZRrZ8ms3GrRSGSiO-3GOgTE87XYBSpdpRh3NcWypJEywoq3m9TiN5obskqV1cnC1LLuYSmVzOaaiFYVsRGLX7MnT9SB6oGlyxILOB1iBsGmTUFiMtjJlZW1jLg/s579/blank-profile-picture-hd-images-photo-1.JPG";
       localStorage.removeItem("auth");
       state.isLoggedIn = false;
     },

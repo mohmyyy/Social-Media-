@@ -56,7 +56,8 @@ const Register = () => {
           authAction.login({
             token: data.idToken,
             email: data.email,
-            name: null,
+            name: "",
+            image: "",
           })
         );
       }
